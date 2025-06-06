@@ -5,10 +5,12 @@ import { ClerkProvider } from "@clerk/nextjs";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 import { Analytics } from "@vercel/analytics/react";
-
-const inter = Catamaran({
+import { Plus_Jakarta_Sans } from "next/font/google";
+const inter = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-plus-jakarta",
+  display: "swap",
 });
 export const metadata = {
   title: "Tinyrl",
@@ -25,7 +27,7 @@ export default function RootLayout({ children }) {
             color="#2563eb"
             initialPosition={0.08}
             crawlSpeed={200}
-            height={3}
+            height={2}
             crawl={true}
             showSpinner={true}
             easing="ease"
@@ -38,7 +40,7 @@ export default function RootLayout({ children }) {
           />
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >

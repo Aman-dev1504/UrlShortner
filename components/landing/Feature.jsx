@@ -1,127 +1,80 @@
 "use client";
+
 import { AreaChart, Shapes, Signature, Unlink } from "lucide-react";
-import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Feature() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredCard, setHoveredCard] = useState(null);
-
-  const handleMouseMove = (e, cardIndex) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
-  };
-
   const cards = [
     {
-      icon: <Signature className="h-5 w-5" />,
-      title: "Login or Sign Up",
+      icon: <Signature className="h-5 w-5 text-blue-500" />,
+      title: "Sign Up or Log In",
       description:
-        "login or sign up to your accout using your socials google/github without passwords and email.",
+        "Sign up or log in to your account using Google or GitHub—no password or email required.",
     },
     {
-      icon: <Unlink className="h-5 w-5" />,
-      title: "Short your links",
+      icon: <Unlink className="h-5 w-5 text-blue-500" />,
+      title: "Shorten Your Links",
       description:
-        "you can short any kind of links e.g youtube, instagram facebook & or custom link with just one click.",
+        "Shorten any link (e.g., YouTube, Instagram, Facebook, or custom URLs) with one click.",
     },
     {
-      icon: <Shapes className="h-5 w-5" />,
-      title: "Share your links",
+      icon: <Shapes className="h-5 w-5 text-blue-500" />,
+      title: "Share Your Links",
       description:
-        "share your shorten links with anyone with just one click using social or copy your link.",
+        "Share your shortened links easily with one-click social sharing or copy to clipboard.",
     },
     {
-      icon: <AreaChart className="h-5 w-5" />,
-      title: "Get analytics",
+      icon: <AreaChart className="h-5 w-5 text-blue-500" />,
+      title: "Get Analytics",
       description:
-        "Get analytics of your links and clicks either the user is using chrome and analized regions.",
+        "Track link clicks, browser usage (e.g., Chrome), and analyze user regions.",
     },
   ];
 
   return (
-    <section className="px-6 md:px-20 lg:px-32 mb-10">
-      <div className="max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto text-center space-y-6 px-4">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-5">
-          What it{" "}
-          <span className="relative inline-block">
-            <span className="relative z-10">requires</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 200 20"
-              className="absolute left-0 bottom-0 w-full h-2 text-blue-500"
-            >
-              <path
-                d="M0,10 C50,15 150,5 200,10"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="animate-draw"
-              />
-            </svg>
-          </span>{" "}
-          & How to get{" "}
-          <span className="relative inline-block">
-            <span className="relative z-10">started</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 200 20"
-              className="absolute left-0 bottom-0 w-full h-2 text-blue-500"
-            >
-              <path
-                d="M0,10 C50,15 150,5 200,10"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="animate-draw"
-              />
-            </svg>
-          </span>
-          ?
-        </h2>
-        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-muted-foreground mx-auto leading-relaxed max-w-md md:max-w-lg lg:max-w-2xl">
+    <section className="py-24 lg:py-12 px-4 sm:px-6 lg:px-8 bg-slate-50/50 dark:bg-slate-900/50">
+      <div className="max-w-4xl mx-auto text-center space-y-6">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white"
+        >
+          How to Get <span className="text-blue-500">Started</span>
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
+        >
           Enjoy a seamless and completely free experience with this URL
-          shortener — no subscriptions or hidden fees required!
-        </p>
+          shortener—no subscriptions or hidden fees required!
+        </motion.p>
       </div>
 
-      <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="mt-12 max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {cards.map((card, index) => (
-          <div
+          <motion.div
             key={index}
-            className="relative bg-card hover:bg-secondary/40 transition-all duration-300 p-6 rounded-xl border border-border shadow-sm hover:shadow-md group cursor-pointer"
-            onMouseMove={(e) => {
-              handleMouseMove(e, index);
-              setHoveredCard(index);
-            }}
-            onMouseLeave={() => setHoveredCard(null)}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            whileHover={{ y: -5 }}
+            className="group relative"
           >
-            {/* Hover effect spotlight */}
-            <div
-              className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              style={{
-                background:
-                  hoveredCard === index
-                    ? `radial-gradient(circle 100px at ${mousePosition.x}px ${mousePosition.y}px, rgba(37, 99, 235, 0.40), transparent 100%)`
-                    : "",
-              }}
-            />
-
-            {/* Card content */}
-            <div className="relative z-10">
-              {card.icon}
-              <h3 className="text-lg mt-2 mb-1">{card.title}</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="relative h-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg border border-slate-200/70 dark:border-slate-700/70 hover:border-blue-200/50 dark:hover:border-blue-400/30 transition-all duration-200 flex flex-col">
+              <div className="mb-4 p-2 w-10 h-10 rounded-lg bg-blue-50/50 dark:bg-blue-900/20 flex items-center justify-center">
+                {card.icon}
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                {card.title}
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mt-auto">
                 {card.description}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </section>

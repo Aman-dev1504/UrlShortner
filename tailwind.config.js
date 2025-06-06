@@ -131,6 +131,14 @@ module.exports = {
           from: { strokeDasharray: "0, 200" },
           to: { strokeDasharray: "200, 200" },
         },
+        "gradient-x": {
+          "0%, 100%": {
+            "background-position": "left center",
+          },
+          "50%": {
+            "background-position": "right center",
+          },
+        },
       },
       animation: {
         shine: "shine 5s ease-in-out infinite",
@@ -144,6 +152,7 @@ module.exports = {
         "fade-word": "fade-word 8s infinite",
         shimmer: "shimmer 5s linear infinite",
         draw: "draw 1s ease-in-out forwards",
+        "gradient-x": "gradient-x 4s ease infinite",
       },
     },
   },

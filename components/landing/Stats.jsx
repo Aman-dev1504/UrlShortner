@@ -3,7 +3,8 @@
 import { getData } from "@/server_functions/getData";
 import { useEffect, useState } from "react";
 import { Skeleton } from "../ui/skeleton";
-import { Users, Link2, MousePointerClick, ArrowUpRight } from "lucide-react";
+import { Users, Link2, MousePointerClick } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Stats() {
   const [users, setUsers] = useState(0);
@@ -29,66 +30,55 @@ export default function Stats() {
       icon: <Users className="w-6 h-6 text-blue-500" />,
       value: users,
       label: "Registered Users",
-      trend: "+12% from last month",
     },
     {
-      icon: <Link2 className="w-6 h-6 text-green-500" />,
+      icon: <Link2 className="w-6 h-6 text-blue-500" />,
       value: links,
       label: "Links Shortened",
-      trend: "+8% from last month",
     },
     {
-      icon: <MousePointerClick className="w-6 h-6 text-purple-500" />,
+      icon: <MousePointerClick className="w-6 h-6 text-blue-500" />,
       value: clicks,
       label: "Total Clicks",
-      trend: "+15% from last month",
     },
   ];
 
   return (
-    <section className="mb-10 py-16 px-6 md:px-20 lg:px-32">
+    <section className="py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 cursor-pointer">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-3xl text-center sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-8"
+        >
+          Our <span className="text-blue-400">Impact</span>
+        </motion.h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {stats.map((stat, index) => (
-            <div
+            <motion.div
               key={index}
-              className="group relative bg-card hover:bg-secondary/40 transition-all duration-300 p-6 rounded-xl border border-border shadow-sm hover:shadow-md"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+              className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-white/90 dark:hover:bg-slate-800/90 transition-colors duration-200"
             >
-              {/* Animated arrow icon on hover */}
-              <div className="absolute top-4 right-4 transform translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                <ArrowUpRight className="w-4 h-4 text-muted-foreground" />
-              </div>
-
-              {/* Icon with bounce animation */}
-              <div className="mb-4 group-hover:-translate-y-1 transition-transform duration-300">
-                {stat.icon}
-              </div>
-
-              {/* Stats content */}
-              <div className="space-y-2">
-                {!loading ? (
-                  <div className="flex items-baseline gap-1">
-                    <h3 className="text-4xl font-bold tracking-tight animate-in slide-in-from-bottom duration-500">
-                      {stat.value.toLocaleString()}
-                    </h3>
-                    <span className="text-2xl text-muted-foreground">+</span>
-                  </div>
-                ) : (
-                  <Skeleton className="w-24 h-10" />
-                )}
-
-                <p className="text-base font-medium text-muted-foreground">
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  {stat.icon}
+                  <h3 className="text-3xl font-bold text-slate-900 dark:text-white">
+                    {!loading ? (
+                      stat.value.toLocaleString() + "+"
+                    ) : (
+                      <Skeleton className="w-20 h-8" />
+                    )}
+                  </h3>
+                </div>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                   {stat.label}
                 </p>
-
-                {/* Trend indicator */}
-                {!loading && (
-                  <p className="text-sm text-muted-foreground/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {stat.trend}
-                  </p>
-                )}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

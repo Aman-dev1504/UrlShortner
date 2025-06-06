@@ -1,96 +1,140 @@
-import { cn } from "@/lib/utils";
+"use client";
 import Link from "next/link";
-import { buttonVariants } from "../ui/button";
+import { Button } from "../ui/button";
 import {
   Star,
   Rocket,
   ArrowRight,
   Link2,
-  ChevronRight,
   BarChart,
+  Sparkles,
+  Zap,
 } from "lucide-react";
 import IfLoggedInElse from "../helpers/ifLoggedInElse";
-import { RainbowButton } from "../ui/rainbow-button";
+import { motion } from "framer-motion";
 
 export default function Hero() {
-  const words = ["powerful", "shorter", "trackable", "powerful"];
-
   return (
-    <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden py-20 px-6 md:px-20 lg:px-32">
-      <div className="absolute inset-0 -z-10 mx-0 max-w-none overflow-hidden">
-        <div className="absolute left-1/2 top-0 ml-[-38%] h-[35rem] w-[81.25rem] dark:blur-[1px]">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-20 [mask-image:radial-gradient(farthest-side_at_top,white,transparent)]" />
-        </div>
-        <div className="absolute right-0 top-1/2 h-[20rem] w-[20rem] rounded-full bg-gradient-to-l from-blue-500/10 to-transparent blur-3xl" />
-        <div className="absolute left-0 bottom-0 h-[15rem] w-[15rem] rounded-full bg-gradient-to-r from-purple-500/10 to-transparent blur-3xl" />
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Simplified gradient background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-slate-50 to-blue-50/20 dark:from-slate-950 dark:to-blue-950/30" />
 
-      <div className="grid gap-8 sm:text-center sm:place-items-center sm:max-w-lg md:max-w-2xl sm:mx-auto lg:max-w-[1000px] ">
-        {/* Enhanced featured badge with shimmer effect */}
-        <div className="cursor-pointer relative inline-flex items-center rounded-full px-4 py-1.5 text-sm leading-6 text-muted-foreground ring-1 ring-border/90 hover:ring-border/50 transition-all duration-200 group  overflow-hidden">
-          <div className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
-          <Star className="mr-2 h-4 w-4 text-yellow-500 animate-pulse" />
-          Smart URL shortening for modern web{" "}
-          <ChevronRight className="ml-1 h-4 w-4 text-muted-foreground/40 group-hover:translate-x-0.5 transition-transform duration-150" />
-        </div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center relative z-10">
+        {/* Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="inline-flex items-center mb-6"
+        >
+          <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-white/20 text-sm font-medium text-slate-700 dark:text-slate-300">
+            <Sparkles className="w-4 h-4 text-blue-500" />
+            <span>Smart URL Management</span>
+          </div>
+        </motion.div>
 
-        <h1 className="font-bold text-4xl md:text-5xl lg:text-7xl tracking-tight">
-          Turn long links into <span className="text-blue-500">Powerful</span>{" "}
-          trails
-        </h1>
+        {/* Main heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="space-y-4"
+        >
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white">
+            Transform Long Links <br className="sm:hidden" />
+            Into <span className="text-blue-600 dark:text-blue-400">Magic</span>
+          </h1>
+          <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Create trackable short links with powerful analytics.{" "}
+            <span className="font-medium">Built for the modern web.</span>
+          </p>
+        </motion.div>
 
-        <p className="text-muted-foreground text-lg md:text-xl max-w-2xl leading-relaxed">
-          Transform your lengthy URLs into concise, memorable links. Track their
-          performance with detailed analytics, and manage everything from a
-          beautiful dashboard.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-4">
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-10"
+        >
           <IfLoggedInElse
             ifNot={
-              <div className="flex flex-col sm:flex-row items-center gap-4">
-                <RainbowButton
-                  href="/sign-up"
-                  className="group w-full sm:w-auto"
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button
+                  variant="default"
+                  size="lg"
+                  asChild
+                  className="w-full sm:w-auto"
                 >
-                  Get Started
-                  <Rocket className="ml-2 h-4 w-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform duration-200" />
-                </RainbowButton>
-                <Link
-                  href="/features"
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "lg" }),
-                    "group w-full sm:w-auto"
-                  )}
+                  <Link href="/sign-up" className="flex items-center gap-2">
+                    Start Creating
+                    <Rocket className="w-5 h-5" />
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  asChild
+                  className="w-full sm:w-auto"
                 >
-                  See Features
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </Link>
+                  <Link href="/features" className="flex items-center gap-2">
+                    Explore Features
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </Button>
               </div>
             }
             ifUser={
-              <div className="flex flex-col sm:flex-row items-center gap-4">
-                <RainbowButton
-                  href="/dashboard"
-                  className="group w-full sm:w-auto"
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button
+                  variant="default"
+                  size="lg"
+                  asChild
+                  className="w-full sm:w-auto"
                 >
-                  Go to Dashboard
-                  <BarChart className="ml-2 h-4 w-4 group-hover:rotate-12 transition-transform duration-200" />
-                </RainbowButton>
-                <Link
-                  href="/new"
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "lg" }),
-                    "group w-full sm:w-auto"
-                  )}
+                  <Link href="/dashboard" className="flex items-center gap-2">
+                    Dashboard
+                    <BarChart className="w-5 h-5" />
+                  </Link>
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  asChild
+                  className="w-full sm:w-auto"
                 >
-                  Create New Link
-                  <Link2 className="ml-2 h-4 w-4 group-hover:rotate-12 transition-transform duration-200" />
-                </Link>
+                  <Link href="/new" className="flex items-center gap-2">
+                    Create Link
+                    <Link2 className="w-5 h-5" />
+                  </Link>
+                </Button>
               </div>
             }
           />
-        </div>
+        </motion.div>
+
+        {/* Feature highlights */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="mt-12"
+        >
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-1.5">
+              <Zap className="w-4 h-4 text-blue-500" />
+              <span>Lightning Fast</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <BarChart className="w-4 h-4 text-purple-500" />
+              <span>Advanced Analytics</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Star className="w-4 h-4 text-indigo-500" />
+              <span>Premium Features</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

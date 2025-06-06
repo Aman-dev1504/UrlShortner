@@ -1,10 +1,13 @@
-import { currentUser } from "@clerk/nextjs/server"
+"use client";
 
-export default async function IfLoggedInElse({ ifUser, ifNot }) {
-    const user = await currentUser();
-    return (
-        <>
-            {user ? (ifUser) : (ifNot)}
-        </>
-    )
+import { useUser } from "@clerk/nextjs";
+
+export default function IfLoggedInElse({ ifUser, ifNot }) {
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return <div>Loading...</div>; // Or a proper loading state
+  }
+
+  return isSignedIn ? ifUser : ifNot;
 }
